@@ -1,0 +1,17 @@
+# vim: set syntax=dockerfile
+FROM iamdork/php:7
+
+ENV COMPOSER_ALLOW_SUPERUSER=1 \
+    COMPOSER_APPROOT="/var/www" \
+    COMPOSER_WEBROOT="web"
+
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
+
+ARG VAULT_VERSION="0.6.1"
+RUN apt-get update && apt-get install wget unzip -y
+
+RUN wget https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip \
+ && unzip -d /bin vault_${VAULT_VERSION}_linux_amd64.zip
+
+COPY composer-install.sh /dork/composer/composer-install.sh
+

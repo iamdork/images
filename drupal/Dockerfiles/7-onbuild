@@ -1,0 +1,6 @@
+# vim: set syntax=dockerfile
+FROM iamdork/drupal:7
+
+ONBUILD COPY . $APACHE_DOCROOT
+ONBUILD WORKDIR $APACHE_DOCROOT
+

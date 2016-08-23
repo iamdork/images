@@ -1,0 +1,6 @@
+# vim: set syntax=dockerfile
+# For now, the images for drupal 7 and 8 are identical.
+# This file is kept so they may differ at some point.
+FROM iamdork/drupal:7
+ENV DRUPAL_VERSION="8" \
+  DRUPAL_CONFIG_DIR="sites/default/files/config/sync"

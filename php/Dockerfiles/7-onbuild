@@ -1,0 +1,6 @@
+# vim: set syntax=dockerfile
+FROM iamdork/php:7
+
+ONBUILD COPY . $APACHE_DOCROOT
+WORKDIR $APACHE_DOCROOT
+
