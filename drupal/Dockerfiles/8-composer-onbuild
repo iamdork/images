@@ -22,4 +22,8 @@ ONBUILD ENV DRUPAL_CONFIG_DIR=../config
 
 ONBUILD RUN bash /dork/composer/composer-install.sh
 ONBUILD COPY . $COMPOSER_APPROOT
-WORKDIR $COMPOSER_APPROOT
+ONBUILD LABEL dork.hotcode.root=$COMPOSER_APPROOT
+ONBUILD WORKDIR $COMPOSER_APPROOT
+
+ONBUILD LABEL dork.buildresults.root=$COMPOSER_APPROOT
+ONBUILD LABEL dork.buildresults.paths="vendor;drush/contrib;${COMPOSER_WEBROOT}/modules/contrib;${COMPOSER_WEBROOT}/themes/contrib;${COMPOSER_WEBROOT}/profiles/contrib"

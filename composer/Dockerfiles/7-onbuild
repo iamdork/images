@@ -19,5 +19,10 @@ ONBUILD COPY composer.json $COMPOSER_APPROOT/composer.json
 ONBUILD COPY composer.lock $COMPOSER_APPROOT/composer.lock
 ONBUILD RUN bash /dork/composer/composer-install.sh
 ONBUILD COPY . $COMPOSER_APPROOT
-WORKDIR $COMPOSER_APPROOT
+ONBUILD LABEL dork.hotcode.root=$COMPOSER_APPROOT
+
+ONBUILD LABEL dork.buildresults.root=$COMPOSER_APPROOT
+ONBUILD LABEL dork.buildresults.paths="vendor"
+
+ONBUILD WORKDIR $COMPOSER_APPROOT
 
