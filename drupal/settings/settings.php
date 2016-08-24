@@ -4,6 +4,11 @@ if (file_exists(__DIR__ . '/settings.dork.php')) {
    include __DIR__ . '/settings.dork.php';
 }
 
+// Include local settings if available.
+if (file_exists(__DIR__ . '/settings.local.php')) {
+   include __DIR__ . '/settings.local.php';
+}
+
 // Set the private file path outside of the docroot.
 $settings['file_private_path'] = '/private';
 
