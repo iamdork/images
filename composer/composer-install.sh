@@ -31,8 +31,7 @@ if [ -n "$SSH_PRIVATE_KEY" ]; then
   chmod 600 /root/.ssh/id_rsa
 fi
 
-echo "Running composer install in $COMPOSER_APPROOT."
-cd "$COMPOSER_APPROOT" || exit
+echo "Running composer install in $COMPOSER."
 composer install
 
 # Remove the private key and github token to leave no traces in the image.
@@ -45,4 +44,3 @@ if [ -n "$SSH_PRIVATE_KEY" ]; then
   echo "Removing ssh private key."
   rm /root/.ssh/id_rsa
 fi
-

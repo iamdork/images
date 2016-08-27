@@ -8,7 +8,7 @@ ENV DRUPAL_VERSION="7" \
     DRUPAL_INSTALL_PARAMS="" \
     DRUPAL_PRODUCTION_MODULES="" \
     DRUPAL_DEVELOPMENT_MODULES=""
-    
+
 
 COPY drushrc.php /root/.drush/drushrc.php
 COPY opcache-drupal.ini /usr/local/etc/php/conf.d/opcache-drupal.ini
@@ -16,8 +16,10 @@ RUN composer global require drush/drush \
   && ln -s /root/.composer/vendor/bin/drush /usr/bin/drush
 
 COPY settings /dork/drupal
-  
+
 COPY setup-drupal.sh /dork/init/setup-drupal.sh
 RUN rm /dork/init/setup.sh \
   && ln -s /dork/init/setup-drupal.sh /dork/init/setup.sh
 
+LABEL dork.hotcode="sites/all;profiles"
+LABEL dork.dependencies=""

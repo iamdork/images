@@ -4,3 +4,6 @@
 FROM iamdork/drupal:7
 ENV DRUPAL_VERSION="8" \
   DRUPAL_CONFIG_DIR="sites/default/files/config/sync"
+
+ONBUILD LABEL dork.hotcode="modules;themes;profiles"
+ONBUILD LABEL dork.dependencies=""

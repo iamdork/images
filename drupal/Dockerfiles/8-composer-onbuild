@@ -1,29 +1,24 @@
 # vim: set ft=dockerfile:
 FROM iamdork/drupal:8
 
-ONBUILD ARG COMPOSER_APPROOT="/var/www"
-ONBUILD ENV COMPOSER_APPROOT=${COMPOSER_APPROOT}
-ONBUILD ARG COMPOSER_WEBROOT="web"
-ONBUILD ENV COMPOSER_WEBROOT=${COMPOSER_WEBROOT}
-ONBUILD ENV APACHE_DOCROOT=$COMPOSER_APPROOT/$COMPOSER_WEBROOT
+ONBUILD ARG WEBROOT="web"
+ONBUILD ENV WEBROOT=${WEBROOT}
+ONBUILD ENV APACHE_DOCROOT=/var/www/html/${WEBROOT}
 
 ONBUILD ARG VAULT_TOKEN=''
 ONBUILD ENV VAULT_TOKEN=${VAULT_TOKEN}
 ONBUILD ARG VAULT_ADDR='http://172.17.0.1'
 ONBUILD ARG ACCEPT_HOSTS="github.com bitbucket.org"
 
-ONBUILD RUN rm -rf $COMPOSER_APPROOT
-
-ONBUILD COPY composer.json $COMPOSER_APPROOT/composer.json
-ONBUILD COPY composer.lock $COMPOSER_APPROOT/composer.lock
-ONBUILD COPY scripts/composer $COMPOSER_APPROOT/scripts/composer
-ONBUILD COPY web/sites/default $COMPOSER_APPROOT/web/sites/default
+ONBUILD COPY composer.json /var/www/html/composer.json
+ONBUILD COPY composer.lock /var/www/html/composer.lock
+ONBUILD COPY scripts/composer /var/www/html/scripts/composer
+ONBUILD COPY web/sites/default /var/www/html/web/sites/default
 ONBUILD ENV DRUPAL_CONFIG_DIR=../config
 
 ONBUILD RUN bash /dork/composer/composer-install.sh
-ONBUILD COPY . $COMPOSER_APPROOT
-ONBUILD LABEL dork.hotcode.root=$COMPOSER_APPROOT
-ONBUILD WORKDIR $COMPOSER_APPROOT
+ONBUILD COPY . /var/www/html
 
 ONBUILD LABEL dork.buildresults.root=$COMPOSER_APPROOT
-ONBUILD LABEL dork.buildresults.paths="vendor;drush/contrib;${COMPOSER_WEBROOT}/modules/contrib;${COMPOSER_WEBROOT}/themes/contrib;${COMPOSER_WEBROOT}/profiles/contrib"
+ONBUILD LABEL dork.hotcode="drush/custom;${WEBROOT}/modules/custom;${WEBROOT}/themes/custom;${WEBROOT}/profiles/custom"
+ONBUILD LABEL dork.dependencies="vendor;drush/contrib;${WEBROOT}/core;${WEBROOT}/modules/contrib;${WEBROOT}/themes/contrib;${WEBROOT}/profiles/contrib"

@@ -1,3 +1,3 @@
 <?php
-$options['root'] = getenv('APACHE_DOCROOT');
+$options['root'] = getenv('DOCROOT');
 $options['uri'] = getenv('VIRTUAL_HOST');

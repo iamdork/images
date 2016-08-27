@@ -1,9 +1,9 @@
 # vim: set syntax=dockerfile
 FROM iamdork/php:7
 
-ENV COMPOSER_ALLOW_SUPERUSER=1 \
-    COMPOSER_APPROOT="/var/www" \
-    COMPOSER_WEBROOT="web"
+ENV COMPOSER_ALLOW_SUPERUSER=1
+ENV WEBROOT="web"
+ENV DOCROOT=/var/www/html/${WEBROOT}
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
 
@@ -14,4 +14,8 @@ RUN wget https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VER
  && unzip -d /bin vault_${VAULT_VERSION}_linux_amd64.zip
 
 COPY composer-install.sh /dork/composer/composer-install.sh
+RUN chmod +x /dork/composer/composer-install.sh
 
+
+LABEL dork.hotcode="web" \
+      dork.dependencies="vendor"

@@ -4,7 +4,7 @@ set -e
 # shellcheck source=/dev/null
 . /dork/init/setup-php.sh
 
-SITE_PATH="$APACHE_DOCROOT"/sites/"$DRUPAL_SITE"
+SITE_PATH="$DOCROOT"/sites/"$DRUPAL_SITE"
 
 # If there is no settings.php, copy  default.settings.php.
 if [ -f "$SITE_PATH"/default.settings.php ] && ! [ -f "$SITE_PATH"/settings.php ]; then
@@ -15,7 +15,7 @@ fi
 # If there already is a settings.php, move it to settings.dork.php, which
 # will be included by the container internal settings.php.
 if [ -f "$SITE_PATH"/settings.php ] && ! [ -f "$SITE_PATH"/settings.dork.php ]; then
-  echo "Moving existing settings.dork.php."
+  echo "Moving existing settings.php to settings.dork.php."
   mv "$SITE_PATH"/settings.php "$SITE_PATH"/settings.dork.php
 fi
 

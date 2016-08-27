@@ -1,7 +1,11 @@
 # vim: set ft=dockerfile:
 FROM iamdork/drupal:8
 
-ONBUILD COPY . $APACHE_DOCROOT
-ONBUILD LABEL dork.hotcode.root=$APACHE_DOCROOT
-ONBUILD WORKDIR $APACHE_DOCROOT
+# Since we are using the same recipe, we have to consume these
+# arguments, or the docker-compose setup will fail.
+ONBUILD ARG VAULT_ADDR=""
+ONBUILD ARG ACCEPT_HOSTS=""
+ONBUILD ARG VAULT_TOKEN=""
 
+ONBUILD COPY . ${DOCROOT}
+ONBUILD LABEL dork.root=${DOCROOT}
