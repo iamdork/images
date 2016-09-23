@@ -50,7 +50,7 @@ if [[ -n "$MYSQL_USER" && -n "$MYSQL_PASSWORD" && -n "$MYSQL_HOST" && -n "$MYSQL
       fi
     else
       # No database dump available, install everything from scratch.
-      if [ -d "$DRUPAL_CONFIG_DIR" ]; then
+      if [ -d "$DOCROOT/$DRUPAL_CONFIG_DIR" ]; then
         DRUPAL_INSTALL_PARAMS="$DRUPAL_INSTALL_PARAMS --config-dir=$DRUPAL_CONFIG_DIR"
       fi
 
