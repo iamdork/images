@@ -50,12 +50,8 @@ if [[ -n "$MYSQL_USER" && -n "$MYSQL_PASSWORD" && -n "$MYSQL_HOST" && -n "$MYSQL
       fi
     else
       # No database dump available, install everything from scratch.
-      if [ -d "$APACHE_DOCROOT/profiles/config_installer" ]; then
-        # config_installer profile is in use. Override install parameters to
-        # sync with the current config directory.
-        echo "Installing from existing configuration. This could take a while."
-        DRUPAL_INSTALL_PARAMS="config_installer_sync_configure_form.sync_directory=$DRUPAL_CONFIG_DIR"
-        DRUPAL_INSTALL_PROFILE="config_installer"
+      if [ -d "$DRUPAL_CONFIG_DIR" ]; then
+        DRUPAL_INSTALL_PARAMS="$DRUPAL_INSTALL_PARAMS --config-dir=$DRUPAL_CONFIG_DIR"
       fi
 
       # Run installation with provided environment variables.
