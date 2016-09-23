@@ -1,6 +1,8 @@
 # vim: set syntax=dockerfile
 FROM iamdork/drupal:7
 
+ONBUILD ARG DRUPAL_WEBROOT='.'
+
 # Since we are using the same recipe, we have to consume these
 # arguments, or the docker-compose setup will fail.
 ONBUILD ARG VAULT_ADDR=""

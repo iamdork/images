@@ -1,9 +1,9 @@
 # vim: set ft=dockerfile:
 FROM iamdork/drupal:8
 
-ONBUILD ARG WEBROOT="web"
-ONBUILD ENV WEBROOT=${WEBROOT}
-ONBUILD ENV APACHE_DOCROOT=/var/www/html/${WEBROOT}
+ONBUILD ARG DRUPAL_WEBROOT='web'
+ONBUILD ENV WEBROOT=${DRUPAL_WEBROOT}
+ONBUILD ENV DOCROOT=/var/www/html/${WEBROOT}
 
 ONBUILD ARG VAULT_TOKEN=''
 ONBUILD ENV VAULT_TOKEN=${VAULT_TOKEN}
@@ -13,7 +13,7 @@ ONBUILD ARG ACCEPT_HOSTS="github.com bitbucket.org"
 ONBUILD COPY composer.json /var/www/html/composer.json
 ONBUILD COPY composer.lock /var/www/html/composer.lock
 ONBUILD COPY scripts/composer /var/www/html/scripts/composer
-ONBUILD COPY web/sites/default /var/www/html/web/sites/default
+ONBUILD COPY ${WEBROOT}/sites/default /var/www/html/${WEBROOT}/sites/default
 ONBUILD ENV DRUPAL_CONFIG_DIR=../config
 
 ONBUILD RUN bash /dork/composer/composer-install.sh
