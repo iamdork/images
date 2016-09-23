@@ -34,6 +34,9 @@ if (getenv('DRUPAL_VERSION') == "8") {
 }
 else {
   $drupal_hash_salt = 'dork';
+  if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
+    $_SERVER['HTTPS'] = 'on';
+  }
 }
 
 if (getenv('DEVELOPMENT') == 'yes') {
