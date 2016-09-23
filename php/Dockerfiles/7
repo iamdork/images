@@ -4,6 +4,7 @@ FROM php:7-apache
 ENV DEVELOPMENT="no" \
     VIRTUAL_HOST="localhost" \
     XDEBUG_REMOTE_HOST="" \
+    XDEBUG_REMOTE_AUTOSTART="Off" \
     ADMIN_EMAIL="admin@localhost" \
     DOCROOT="/var/www/html" \
     MYSQL_HOST="database" \
@@ -22,6 +23,7 @@ RUN apt-get update \
   && a2enmod rewrite
 
 COPY init.sh /dork/init/init.sh
+COPY xdebug.sh /usr/bin/xdebug
 COPY setup-php.sh /dork/init/setup-php.sh
 COPY development.ini /dork/config/development.ini
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
@@ -30,7 +32,9 @@ COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 # a deriving image.
 RUN ln -s /dork/init/setup-php.sh /dork/init/setup.sh \
     # Make root init script executable.
-    && chmod +x /dork/init/init.sh
+    && chmod +x /dork/init/init.sh \
+    && chmod +x /usr/bin/xdebug
+
 
 LABEL dork.root=/var/www/html \
       dork.hotcode="." \
