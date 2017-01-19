@@ -1,9 +1,34 @@
 # vim: set syntax=dockerfile
 # For now, the images for drupal 7 and 8 are identical.
 # This file is kept so they may differ at some point.
-FROM iamdork/drupal:7
+#
+#
+#
+#
+#
+
+FROM iamdork/composer:7
 ENV DRUPAL_VERSION="8" \
-  DRUPAL_CONFIG_DIR="sites/default/files/config/sync"
+    DRUPAL_SITE="default" \
+    DRUPAL_ADMIN_USER="admin" \
+    DRUPAL_ADMIN_PASSWORD="admin" \
+    DRUPAL_INSTALL_PROFILE="standard" \
+    DRUPAL_INSTALL_PARAMS="" \
+    DRUPAL_CONFIG_DIR="sites/default/files/config/sync" \
+    DRUPAL_PRODUCTION_MODULES="" \
+    DRUPAL_DEVELOPMENT_MODULES=""
+
+
+COPY drushrc.php /root/.drush/drushrc.php
+COPY opcache-drupal.ini /usr/local/etc/php/conf.d/opcache-drupal.ini
+RUN composer global require drush/drush \
+  && ln -s /root/.composer/vendor/bin/drush /usr/bin/drush
+
+COPY settings /dork/drupal
+
+COPY setup-drupal.sh /dork/init/setup-drupal.sh
+RUN rm /dork/init/setup.sh \
+  && ln -s /dork/init/setup-drupal.sh /dork/init/setup.sh
 
 ONBUILD LABEL dork.hotcode="modules;themes;profiles"
 ONBUILD LABEL dork.dependencies=""

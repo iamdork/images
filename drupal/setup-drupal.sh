@@ -112,16 +112,16 @@ if [ "$DRUPAL_VERSION" == "8" ]; then
 fi
 
 if [ "$DRUPAL_VERSION" == "7" ]; then
-  drush cc all
+  drush cc all || true
 fi
 
 # Make mounted files directories writable to apache user.
 # TODO: Find a better solution. Unfortunately mounts are
 # always owned by root.
 if [ -d /private ]; then
-  chown www-data:www-data /private
+  chown -R www-data:www-data /private
 fi
 
 if [ -d "$SITE_PATH"/files ]; then
-  chown www-data:www-data "$SITE_PATH"/files
+  chown -R www-data:www-data "$SITE_PATH"/files
 fi

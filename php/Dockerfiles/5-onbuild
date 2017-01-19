@@ -1,5 +1,5 @@
 # vim: set syntax=dockerfile
-FROM iamdork/php:7
+FROM iamdork/php:5
 
 LABEL dork.root=/var/www/html \
       dork.hotcode="." \

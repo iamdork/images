@@ -1,5 +1,5 @@
 # vim: syntax=dockerfile
-FROM php:7-apache
+FROM php:5-apache
 
 ENV DEVELOPMENT="no" \
     VIRTUAL_HOST="localhost" \

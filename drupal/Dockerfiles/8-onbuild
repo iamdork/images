@@ -11,3 +11,5 @@ ONBUILD ARG VAULT_TOKEN=""
 
 ONBUILD COPY . ${DOCROOT}
 ONBUILD LABEL dork.root=${DOCROOT}
+ONBUILD LABEL dork.hotcode="modules;themes;profiles"
+ONBUILD LABEL dork.dependencies=""

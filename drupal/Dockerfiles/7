@@ -1,5 +1,5 @@
 # vim: set syntax=dockerfile
-FROM iamdork/composer:7
+FROM iamdork/composer:5
 ENV DRUPAL_VERSION="7" \
     DRUPAL_SITE="default" \
     DRUPAL_ADMIN_USER="admin" \

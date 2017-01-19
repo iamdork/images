@@ -1,5 +1,5 @@
 # vim: set syntax=dockerfile
-FROM iamdork/composer:7
+FROM iamdork/composer:5
 
 ONBUILD ARG WEBROOT="web"
 ONBUILD ARG VAULT_TOKEN=""
