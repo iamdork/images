@@ -18,3 +18,9 @@ RUN wget https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VER
 COPY composer-install.sh /dork/composer/composer-install.sh
 RUN chmod +x /dork/composer/composer-install.sh
 
+<<<<<<< HEAD
+=======
+
+LABEL dork.hotcode="web;src" \
+      dork.dependencies="vendor"
+>>>>>>> Adjusted images to new dependency and hotcode management.

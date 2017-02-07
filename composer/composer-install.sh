@@ -11,8 +11,8 @@ if [ -n "$ACCEPT_HOSTS" ]; then
 fi
 
 if [ -n "$VAULT_TOKEN" ]; then
-  SSH_PRIVATE_KEY=$(vault read -field=value secret/SSH_PRIVATE_KEY)
-  GITHUB_PRIVATE_TOKEN=$(vault read -field=value secret/GITHUB_PRIVATE_TOKEN)
+  SSH_PRIVATE_KEY=$(vault read -field=value secret/SSH_PRIVATE_KEY) || true
+  GITHUB_PRIVATE_TOKEN=$(vault read -field=value secret/GITHUB_PRIVATE_TOKEN) || true
 else
   export SSH_PRIVATE_KEY=''
   export GITHUB_PRIVATE_TOKEN=''

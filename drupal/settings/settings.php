@@ -12,6 +12,9 @@ if (file_exists(__DIR__ . '/settings.local.php')) {
 // Set the private file path outside of the docroot.
 $settings['file_private_path'] = '/private';
 
+// Set the temporary file path outside of the docroot.
+$settings['file_temporary_path'] = '/tmp';
+
 
 // Database settings configured by container environment.
 $databases['default']['default'] = array (

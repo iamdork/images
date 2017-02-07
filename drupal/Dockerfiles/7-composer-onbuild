@@ -1,5 +1,6 @@
 # vim: set syntax=dockerfile
 FROM iamdork/drupal:7
+RUN rm -rf /var/www/html/* && composer create-project drupal-composer/drupal-project:7.x-dev /var/www/html --stability dev --no-interaction
 
 ONBUILD ARG DRUPAL_WEBROOT="web"
 ONBUILD ENV WEBROOT=${DRUPAL_WEBROOT}
@@ -10,11 +11,7 @@ ONBUILD ENV VAULT_TOKEN=${VAULT_TOKEN}
 ONBUILD ARG VAULT_ADDR="http://172.17.0.1"
 ONBUILD ARG ACCEPT_HOSTS="github.com bitbucket.org"
 
-ONBUILD COPY composer.json /var/www/html/composer.json
-ONBUILD COPY composer.lock /var/www/html/composer.lock
-
-ONBUILD RUN bash /dork/composer/composer-install.sh
 ONBUILD COPY . ${DOCROOT}
+ONBUILD RUN bash /dork/composer/composer-install.sh
 
 ONBUILD LABEL dork.hotcode="drush/custom;${WEBROOT}/sites/all/modules/custom;${WEBROOT}/sites/all/themes/custom;${WEBROOT}/profiles/custom"
-ONBUILD LABEL dork.dependencies="vendor;drush/contrib;${WEBROOT}/sites/all/modules/contrib;${WEBROOT}/sites/all/themes/contrib;${WEBROOT}/profiles/contrib"

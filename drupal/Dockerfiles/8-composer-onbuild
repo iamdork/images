@@ -1,6 +1,8 @@
 # vim: set ft=dockerfile:
 FROM iamdork/drupal:8
 
+RUN rm -rf /var/www/html/* && composer create-project drupal-composer/drupal-project:8.x-dev /var/www/html --stability dev --no-interaction
+
 ONBUILD ARG DRUPAL_WEBROOT='web'
 ONBUILD ENV WEBROOT=${DRUPAL_WEBROOT}
 ONBUILD ENV DOCROOT=/var/www/html/${WEBROOT}
@@ -10,15 +12,11 @@ ONBUILD ENV VAULT_TOKEN=${VAULT_TOKEN}
 ONBUILD ARG VAULT_ADDR='http://172.17.0.1'
 ONBUILD ARG ACCEPT_HOSTS="github.com bitbucket.org"
 
-ONBUILD COPY composer.json /var/www/html/composer.json
-ONBUILD COPY composer.lock /var/www/html/composer.lock
-ONBUILD COPY patches /var/www/html/patches
-ONBUILD COPY scripts/composer /var/www/html/scripts/composer
-ONBUILD COPY ${WEBROOT}/sites/default /var/www/html/${WEBROOT}/sites/default
+ONBUILD COPY . /var/www/html
 ONBUILD ENV DRUPAL_CONFIG_DIR=../config
 
 ONBUILD RUN bash /dork/composer/composer-install.sh
-ONBUILD COPY . /var/www/html
 
-LABEL dork.hotcode="drush/custom;web/modules/custom;web/themes/custom;web/profiles/custom"
-LABEL dork.dependencies="vendor;drush/contrib;web/core;web/modules/contrib;web/themes/contrib;web/profiles/contrib"
+ONBUILD LABEL dork.buildresults.root=$COMPOSER_APPROOT
+ONBUILD LABEL dork.hotcode="drush/custom;${WEBROOT}/modules/custom;${WEBROOT}/themes/custom;${WEBROOT}/profiles/custom"
+ONBUILD LABEL dork.dependencies="vendor;drush/contrib;${WEBROOT}/core;${WEBROOT}/modules/contrib;${WEBROOT}/themes/contrib;${WEBROOT}/profiles/contrib"
