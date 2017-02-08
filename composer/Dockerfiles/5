@@ -13,14 +13,9 @@ ARG VAULT_VERSION="0.6.1"
 RUN apt-get update && apt-get install wget unzip -y
 
 RUN wget https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip \
- && unzip -d /bin vault_${VAULT_VERSION}_linux_amd64.zip
+ && unzip -d /bin vault_${VAULT_VERSION}_linux_amd64.zip && rm vault_${VAULT_VERSION}_linux_amd64.zip
 
 COPY composer-install.sh /dork/composer/composer-install.sh
 RUN chmod +x /dork/composer/composer-install.sh
 
-<<<<<<< HEAD
-=======
-
-LABEL dork.hotcode="web;src" \
-      dork.dependencies="vendor"
->>>>>>> Adjusted images to new dependency and hotcode management.
+LABEL dork.hotcode="web;src"

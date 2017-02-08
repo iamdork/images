@@ -1,17 +1,5 @@
 # vim: set syntax=dockerfile
 FROM iamdork/php:5
 
-<<<<<<< HEAD
-LABEL dork.root=/var/www/html \
-      dork.hotcode="." \
-      dork.dependencies=""
-
 ONBUILD COPY . ${DOCROOT}
 ONBUILD WORKDIR ${DOCROOT}
-
-
-=======
-ONBUILD COPY . ${DOCROOT}
-ONBUILD WORKDIR ${DOCROOT}
-
->>>>>>> Adjusted images to new dependency and hotcode management.

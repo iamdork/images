@@ -10,17 +10,5 @@ ONBUILD ENV DOCROOT=/var/www/html/${WEBROOT} \
             VAULT_TOKEN=${VAULT_TOKEN} \
             ACCEPT_HOSTS=${ACCEPT_HOSTS}
 
-<<<<<<< HEAD
-ONBUILD COPY composer.json /var/www/html/composer.json
-ONBUILD COPY composer.lock /var/www/html/composer.lock
-
-ONBUILD RUN /dork/composer/composer-install.sh
-
-ONBUILD COPY . /var/www/html
-
-LABEL dork.hotcode="web;src" \
-      dork.dependencies="vendor"
-=======
 ONBUILD COPY . /var/www/html
 ONBUILD RUN /dork/composer/composer-install.sh
->>>>>>> Adjusted images to new dependency and hotcode management.

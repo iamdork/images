@@ -36,12 +36,8 @@ RUN ln -s /dork/init/setup-php.sh /dork/init/setup.sh \
     && chmod +x /usr/bin/xdebug
 
 
-<<<<<<< HEAD
-=======
 LABEL dork.root=/var/www/html \
-      dork.hotcode="." \
-      dork.dependencies=""
+      dork.hotcode="."
 
->>>>>>> Adjusted images to new dependency and hotcode management.
 CMD ["/dork/init/init.sh"]
 
