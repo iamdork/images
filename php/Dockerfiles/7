@@ -36,6 +36,8 @@ RUN ln -s /dork/init/setup-php.sh /dork/init/setup.sh \
     && chmod +x /dork/init/init.sh \
     && chmod +x /usr/bin/xdebug
 
+LABEL dork.root=/var/www/html \
+      dork.hotcode="."
 
 CMD ["/dork/init/init.sh"]
 
